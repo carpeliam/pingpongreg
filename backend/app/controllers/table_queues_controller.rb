@@ -1,0 +1,2 @@
+class TableQueuesController < ApplicationController
+end
