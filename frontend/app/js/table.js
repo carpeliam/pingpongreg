@@ -9,7 +9,7 @@ function showReservedTime(currentPlayer) {
 export default function Table(props) {
   return (
     <div>
-      <button onClick={() => { props.onReserveTable(props.table.id); }}>Reserve</button>
+      <button onClick={() => { props.onReserveTable(props.table.id); }} disabled={props.table.queue.length > 0}>Reserve</button>
       {showReservedTime(props.table.queue[0])}
     </div>
   );
