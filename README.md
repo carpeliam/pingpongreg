@@ -1,6 +1,6 @@
 # Ping Pong Registration
 
-Rails 5 API backend, React Webpack frontend.
+Rails 5 API backend, React Redux Webpack frontend.
 
 [Pivotal Tracker Integration](https://www.pivotaltracker.com/n/projects/1615201).
 

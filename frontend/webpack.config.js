@@ -3,6 +3,7 @@ var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 var isDev = process.argv.indexOf('--watch') > -1;
+var isTest = process.argv[1].indexOf('karma') > -1;
 
 var output;
 var plugins = [
@@ -15,11 +16,13 @@ if (isDev) {
   output = { path: path.join(__dirname, '..', 'backend', 'public'), filename: 'index.js' };
 } else {
   output = { path: path.join(__dirname, 'dist'), filename: 'index-[hash].js' };
-  plugins.push(new webpack.optimize.UglifyJsPlugin());
+  if (!isTest) {
+    plugins.push(new webpack.optimize.UglifyJsPlugin());
+  }
 }
 
 module.exports = {
-  entry: './app/js/index.js',
+  entry: ['whatwg-fetch', './app/js/index.js'],
   output: output,
   module: {
     loaders: [{
@@ -28,6 +31,6 @@ module.exports = {
       loader: 'babel-loader',
     }]
   },
-  devtool: isDev && 'source-map',
+  devtool: (isDev || isTest) && 'source-map',
   plugins: plugins
 };
