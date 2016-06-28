@@ -17,4 +17,12 @@ class TableQueueEntriesControllerTest < ActionDispatch::IntegrationTest
     }
     assert_equal expected_json, json
   end
+
+  test 'deleting a reservation' do
+    reservation = table_queue_entries(:table_queue_child)
+    assert_difference 'TableQueueEntry.count', -1 do
+      delete "/table_queue_entries/#{reservation.id}"
+    end
+    assert_response :no_content
+  end
 end
