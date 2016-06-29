@@ -17,7 +17,21 @@ bundle install
 To export frontend into Rails backend:
 
 ```
+cd frontend
 npm install
 npm run build
+```
+
+
+## Test
+
+### Back End
+```
+rake test
+```
+
+### Front End
+```
+npm run test
 ```
 
