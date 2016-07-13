@@ -28,6 +28,7 @@
   },
   "homepage": "https://github.com/carpeliam/pingpongreg#readme",
   "devDependencies": {
+    "actioncable": "^5.0.0",
     "babel-core": "^6.10.4",
     "babel-loader": "^6.2.4",
     "babel-polyfill": "^6.9.1",

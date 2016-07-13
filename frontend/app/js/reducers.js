@@ -20,6 +20,10 @@ export function tables(state = [], action) {
           queue => queue.filterNot(r => r.get('id') === action.reservation.id))
       ).toJS();
     }
+    case 'RECEIVED_DATA': {
+      console.log('received', action.data);
+      return state;
+    }
     default:
       return state;
   }

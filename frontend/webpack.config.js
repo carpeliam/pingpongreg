@@ -22,7 +22,7 @@ if (isDev) {
 }
 
 module.exports = {
-  entry: ['whatwg-fetch', './app/js/index.js'],
+  entry: ['whatwg-fetch', /* 'actioncable', */ './app/js/index.js'],
   output: output,
   module: {
     loaders: [{

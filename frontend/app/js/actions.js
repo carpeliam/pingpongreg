@@ -19,6 +19,7 @@ export function fetchTables() {
 }
 
 export function reserveTable(tableId) {
+  console.log(window.cable);
   return dispatch =>
     fetch(`/table_queues/${tableId}/table_queue_entries`, { method: 'POST' })
       .then(response => response.json())
@@ -30,3 +31,5 @@ export function removeReservation(reservation) {
     fetch(`/table_queue_entries/${reservation.id}`, { method: 'DELETE' })
       .then(() => dispatch({ type: REMOVE_RESERVATION, reservation }));
 }
+
+export function authenticate() {}

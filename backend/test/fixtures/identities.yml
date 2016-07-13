@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+twitter_identity:
+  user: twitter_user
+  provider: twitter
+  uid: 14195623
+
+two:
+  user: two
+  provider: MyString
+  uid: MyString

@@ -13,6 +13,7 @@ module.exports = function(config) {
     frameworks: ['jasmine'],
     files: [
       'node_modules/whatwg-fetch/fetch.js',
+      // 'node_modules/actioncable/lib/assets/compiled/action_cable.js',
       'node_modules/babel-polyfill/dist/polyfill.min.js',
       'spec/matchers.js',
       'spec/**/*Spec.js'

@@ -15,6 +15,18 @@ const store = createStore(
   applyMiddleware(thunkMiddleware),
   window.devToolsExtension ? window.devToolsExtension() : f => f));
 
+import ActionCable from 'actioncable';
+function dataReceivedAction(data) {
+  return { type: 'RECEIVED_DATA', data };
+}
+window.cable = ActionCable.createConsumer();
+window.cable.subscriptions.create('TableChannel', {
+  connected: () => console.log('connected'),
+  disconnected: (...args) => console.log('disconnected', args),
+  rejected: (...args) => console.log('rejected', args),
+  received: (data) => store.dispatch(dataReceivedAction(data)),
+});
+
 function Root() {
   return (
     <Provider store={store}>
