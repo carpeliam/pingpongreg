@@ -9,13 +9,13 @@ export function tables(state = [], action) {
       return action.tables;
     case ENQUEUE_FOR_TABLE: {
       return list.update(
-        list.findIndex(table => table.id === action.player.table_queue_id),
+        list.findIndex(table => table.id === action.player.table_id),
         table => table.updateIn(['queue'], queue => queue.push(action.player))
       ).toJS();
     }
     case REMOVE_RESERVATION: {
       return list.update(
-        list.findIndex(table => table.id === action.reservation.table_queue_id),
+        list.findIndex(table => table.id === action.reservation.table_id),
         table => table.updateIn(['queue'],
           queue => queue.filterNot(r => r.get('id') === action.reservation.id))
       ).toJS();

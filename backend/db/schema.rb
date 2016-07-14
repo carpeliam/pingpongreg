@@ -10,16 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160625193705) do
+ActiveRecord::Schema.define(version: 20160714034416) do
 
-  create_table "table_queue_entries", force: :cascade do |t|
-    t.integer  "table_queue_id"
-    t.datetime "created_at",     null: false
-    t.datetime "updated_at",     null: false
-    t.index ["table_queue_id"], name: "index_table_queue_entries_on_table_queue_id"
+  create_table "reservations", force: :cascade do |t|
+    t.integer  "table_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["table_id"], name: "index_reservations_on_table_id"
   end
 
-  create_table "table_queues", force: :cascade do |t|
+  create_table "tables", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

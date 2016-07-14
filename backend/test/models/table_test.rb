@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class TableQueueTest < ActiveSupport::TestCase
+class TableTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

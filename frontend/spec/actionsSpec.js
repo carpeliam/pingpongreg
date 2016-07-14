@@ -9,7 +9,7 @@ describe('Actions', () => {
   describe('fetchTables', () => {
     afterEach(fetchMock.restore);
     it('responds with tables from the server', (done) => {
-      fetchMock.mock('/table_queues', [{ id: 1 }]);
+      fetchMock.mock('/tables', [{ id: 1 }]);
       fetchTables()(dispatch).then(() => {
         expect(dispatch).toHaveBeenCalledWith({
           type: 'RECEIVE_TABLES',
@@ -22,11 +22,11 @@ describe('Actions', () => {
 
   describe('reserveTable', () => {
     it('reserves the given table on the server', (done) => {
-      fetchMock.mock('/table_queues/1/table_queue_entries', 'POST', { id: 1, table_queue_id: 1 });
+      fetchMock.mock('/tables/1/reservations', 'POST', { id: 1, table_id: 1 });
       reserveTable(1)(dispatch).then(() => {
         expect(dispatch).toHaveBeenCalledWith({
           type: 'ENQUEUE_FOR_TABLE',
-          player: { id: 1, table_queue_id: 1 },
+          player: { id: 1, table_id: 1 },
         });
         done();
       });
@@ -35,11 +35,11 @@ describe('Actions', () => {
 
   describe('removeReservation', () => {
     it('removes the given reservation from the system', (done) => {
-      fetchMock.mock('/table_queue_entries/2', 'DELETE');
-      removeReservation({ id: 2, table_queue_id: 1 })(dispatch).then(() => {
+      fetchMock.mock('/reservations/2', 'DELETE');
+      removeReservation({ id: 2, table_id: 1 })(dispatch).then(() => {
         expect(dispatch).toHaveBeenCalledWith({
           type: 'REMOVE_RESERVATION',
-          reservation: { id: 2, table_queue_id: 1 },
+          reservation: { id: 2, table_id: 1 },
         });
         done();
       });

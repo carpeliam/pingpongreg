@@ -4,8 +4,8 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-table_queue_child:
-  table_queue: one
+table_one_reservation:
+  table: one
 #
 two: {}
 # column: value

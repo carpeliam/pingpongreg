@@ -13,20 +13,20 @@ function enqueuePlayer(player) {
 
 export function fetchTables() {
   return dispatch =>
-    fetch('/table_queues')
+    fetch('/tables')
       .then(response => response.json())
       .then(json => dispatch(receiveTables(json)));
 }
 
 export function reserveTable(tableId) {
   return dispatch =>
-    fetch(`/table_queues/${tableId}/table_queue_entries`, { method: 'POST' })
+    fetch(`/tables/${tableId}/reservations`, { method: 'POST' })
       .then(response => response.json())
       .then(json => dispatch(enqueuePlayer(json)));
 }
 
 export function removeReservation(reservation) {
   return dispatch =>
-    fetch(`/table_queue_entries/${reservation.id}`, { method: 'DELETE' })
+    fetch(`/reservations/${reservation.id}`, { method: 'DELETE' })
       .then(() => dispatch({ type: REMOVE_RESERVATION, reservation }));
 }
