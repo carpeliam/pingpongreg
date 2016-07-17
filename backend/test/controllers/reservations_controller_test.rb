@@ -7,16 +7,9 @@ class ReservationsControllerTest < ActionDispatch::IntegrationTest
       post "/tables/#{table.id}/reservations", headers: {UserId: 'margaret'}
     end
     new_entry = Reservation.last
-    json = JSON.parse(response.body, symbolize_names: true)
-    assert_response :success
-    expected_json = {
-      id: new_entry.id,
-      table_id: table.id,
-      created_by: 'margaret',
-      created_at: new_entry.created_at.as_json,
-      updated_at: new_entry.updated_at.as_json
-    }
-    assert_equal expected_json, json
+    assert_equal table.id, new_entry.table_id
+    assert_equal 'margaret', new_entry.created_by
+    assert_response :created
   end
 
   test 'deleting a reservation' do

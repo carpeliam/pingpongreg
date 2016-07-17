@@ -39,7 +39,7 @@ describe('Actions', () => {
   });
 
   describe('reserveTable', () => {
-    it('reserves the given table on the server', (done) => {
+    it('submits a reservation for the given table to the server', (done) => {
       fetchMock.mock('/tables/1/reservations', 'POST', { id: 1, table_id: 1 });
       reserveTable(1)(dispatchSpy).then(() => {
         expect(fetchMock.lastOptions('/tables/1/reservations')).toBeDefined();
@@ -47,10 +47,6 @@ describe('Actions', () => {
         expect(
           fetchMock.lastOptions('/tables/1/reservations').headers.get('UserId')
         ).toEqual('margaret');
-        expect(dispatchSpy).toHaveBeenCalledWith({
-          type: 'ENQUEUE_FOR_TABLE',
-          player: { id: 1, table_id: 1 },
-        });
         done();
       });
     });
@@ -65,10 +61,6 @@ describe('Actions', () => {
         expect(
           fetchMock.lastOptions('/reservations/2').headers.get('UserId')
         ).toEqual('margaret');
-        expect(dispatchSpy).toHaveBeenCalledWith({
-          type: 'REMOVE_RESERVATION',
-          reservation: { id: 2, table_id: 1 },
-        });
         done();
       });
     });

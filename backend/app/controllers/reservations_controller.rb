@@ -1,6 +1,7 @@
 class ReservationsController < ApplicationController
   def create
-    render json: Table.find(params[:table_id]).reservations.create(created_by: request.headers.fetch(:UserId))
+    Table.find(params[:table_id]).reservations.create(created_by: request.headers.fetch(:UserId))
+    head :created
   end
 
   def destroy
