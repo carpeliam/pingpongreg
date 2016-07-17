@@ -4,6 +4,7 @@ export const RESERVE_TABLE = 'RESERVE_TABLE';
 export const RECEIVE_TABLES = 'RECEIVE_TABLES';
 export const ENQUEUE_FOR_TABLE = 'ENQUEUE_FOR_TABLE';
 export const REMOVE_RESERVATION = 'REMOVE_RESERVATION';
+export const UPDATE_RESERVATIONS = 'UPDATE_RESERVATIONS';
 
 function headers() {
   return new Headers({ UserId: fetchCurrentUser() });
@@ -15,6 +16,10 @@ function receiveTables(tables) {
 
 function enqueuePlayer(player) {
   return { type: ENQUEUE_FOR_TABLE, player };
+}
+
+export function updateReservations(tableId, reservations) {
+  return { type: UPDATE_RESERVATIONS, tableId, reservations };
 }
 
 export function fetchTables() {

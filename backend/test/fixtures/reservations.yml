@@ -5,7 +5,8 @@
 # below each fixture, per the syntax in the comments below
 #
 table_one_reservation:
-  table: one
+  created_by: Susan Saranwrap
+  table: with_reservations
 #
 two: {}
 # column: value

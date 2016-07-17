@@ -2,7 +2,7 @@ require 'test_helper'
 
 class TablesControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @table = tables(:one)
+    @table = tables(:with_reservations)
   end
 
   test 'fetching an individual table' do
@@ -17,6 +17,7 @@ class TablesControllerTest < ActionDispatch::IntegrationTest
       reservations: [{
         id: reservation.id,
         table_id: @table.id,
+        created_by: reservation.created_by,
         created_at: reservation.created_at.as_json,
         updated_at: reservation.updated_at.as_json
       }]

@@ -6,14 +6,19 @@ import { Provider } from 'react-redux';
 
 import Container from './container';
 import reducer from './reducers';
+import subscribeToSocketEvents from './subscribeToSocketEvents';
 
 const initialState = { tables: [{ id: 1, queue: [] }] };
 const store = createStore(
   reducer,
   initialState,
   compose(
-  applyMiddleware(thunkMiddleware),
-  window.devToolsExtension ? window.devToolsExtension() : f => f));
+    applyMiddleware(thunkMiddleware),
+    window.devToolsExtension ? window.devToolsExtension() : f => f
+  )
+);
+
+subscribeToSocketEvents(store.dispatch);
 
 function Root() {
   return (

@@ -28,6 +28,7 @@
   },
   "homepage": "https://github.com/carpeliam/pingpongreg#readme",
   "devDependencies": {
+    "actioncable": "^5.0.0",
     "babel-core": "^6.10.4",
     "babel-loader": "^6.2.4",
     "babel-polyfill": "^6.9.1",
@@ -54,6 +55,7 @@
     "karma-phantomjs-launcher": "^1.0.1",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^1.7.0",
+    "mock-socket": "^3.0.1",
     "react": "^15.1.0",
     "react-addons-test-utils": "^15.1.0",
     "react-dom": "^15.1.0",

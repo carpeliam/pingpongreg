@@ -1,5 +1,10 @@
 import fetchMock from 'fetch-mock';
-import { fetchTables, reserveTable, removeReservation } from '../app/js/actions';
+import {
+  fetchTables,
+  reserveTable,
+  removeReservation,
+  updateReservations,
+} from '../app/js/actions';
 import * as fetchCurrentUser from '../app/js/fetchCurrentUser';
 
 describe('Actions', () => {
@@ -19,6 +24,16 @@ describe('Actions', () => {
           tables: [{ id: 1 }],
         });
         done();
+      });
+    });
+  });
+
+  describe('updateReservations', () => {
+    it('creates an action with the tableId and reservations listing', () => {
+      expect(updateReservations(1, [{ id: 1, table_id: 1 }])).toEqual({
+        type: 'UPDATE_RESERVATIONS',
+        tableId: 1,
+        reservations: [{ id: 1, table_id: 1 }],
       });
     });
   });
