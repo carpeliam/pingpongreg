@@ -9,7 +9,8 @@ var output;
 var plugins = [
   new HtmlWebpackPlugin({ title: 'Ping Pong Registration' }),
   new webpack.DefinePlugin({
-    ACTION_CABLE_SERVER_URL: isDev ? undefined : JSON.stringify('wss://pivotal-samo-pong-reg.cfapps.io:4443/cable')
+    ACTION_CABLE_SERVER_URL: isDev ? undefined : JSON.stringify('wss://pivotal-samo-pong-reg.cfapps.io:4443/cable'),
+    'process.env.NODE_ENV': JSON.stringify(isDev ? 'development' : 'production')
   })
 ];
 
