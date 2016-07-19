@@ -4,6 +4,8 @@ development:
 test:
   adapter: async
 
+# FIXME find a better home for this lil guy
+<% redis_creds = CF::App::Credentials.find_by_service_tag('redis') rescue {} %>
 production:
   adapter: redis
-  url: redis://localhost:6379/1
+  url: '<%= "redis://:#{redis_creds['password']}@#{redis_creds['hostname']}:#{redis_creds['port']}" %>'

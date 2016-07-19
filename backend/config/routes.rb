@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  mount ActionCable.server => '/cable'
+
   resources :reservations
   resources :tables do
     resources :reservations, only: [:index, :create]

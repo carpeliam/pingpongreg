@@ -7,8 +7,9 @@ var isTest = process.argv[1].indexOf('karma') > -1;
 
 var output;
 var plugins = [
-  new HtmlWebpackPlugin({
-    title: 'Ping Pong Registration'
+  new HtmlWebpackPlugin({ title: 'Ping Pong Registration' }),
+  new webpack.DefinePlugin({
+    ACTION_CABLE_SERVER_URL: isDev ? undefined : JSON.stringify('wss://pivotal-samo-pong-reg.cfapps.io:4443/cable')
   })
 ];
 

@@ -2,5 +2,8 @@
   "extends": "airbnb",
   "plugins": [
     "react"
-  ]
+  ],
+  "globals": {
+    "ACTION_CABLE_SERVER_URL": true
+  }
 }
