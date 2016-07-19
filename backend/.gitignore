@@ -19,3 +19,7 @@
 
 # Ignore Byebug command history file.
 .byebug_history
+
+
+# Exclude Cloud Foundry manifest from git
+/*_manifest.yml
