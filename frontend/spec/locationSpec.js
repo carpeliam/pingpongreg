@@ -26,13 +26,15 @@ describe('Location', () => {
   });
 
   describe('with tables present', () => {
+    const onReserveTable = () => {};
+    const onRemoveReservation = () => {};
     beforeEach(() => {
       const tables = [{ id: 1, reservations: [] }, { id: 2, reservations: [] }];
       location = shallow(<Location
         fetchTables={fetchTablesSpy}
         tables={tables}
-        onReserveTable={'onReserveTable'}
-        onRemoveReservation={'onRemoveReservation'}
+        onReserveTable={onReserveTable}
+        onRemoveReservation={onRemoveReservation}
       />);
     });
     it('does not fetch tables within componentDidMount', () => {
@@ -45,14 +47,14 @@ describe('Location', () => {
       expect(location).toContainReact(<Table
         key={1}
         table={{ id: 1, reservations: [] }}
-        onReserveTable={'onReserveTable'}
-        onRemoveReservation={'onRemoveReservation'}
+        onReserveTable={onReserveTable}
+        onRemoveReservation={onRemoveReservation}
       />);
       expect(location).toContainReact(<Table
         key={2}
         table={{ id: 2, reservations: [] }}
-        onReserveTable={'onReserveTable'}
-        onRemoveReservation={'onRemoveReservation'}
+        onReserveTable={onReserveTable}
+        onRemoveReservation={onRemoveReservation}
       />);
     });
   });
