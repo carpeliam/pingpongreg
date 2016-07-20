@@ -15,9 +15,9 @@ describe('reducers', () => {
 
     it('updates the reservations for a table upon receiving UPDATE_TABLES', () => {
       const initialState = [
-        { id: 1, queue: [] },
-        { id: 2, queue: [{ id: 1, table_id: 2 }] },
-        { id: 3, queue: [] },
+        { id: 1, reservations: [] },
+        { id: 2, reservations: [{ id: 1, table_id: 2 }] },
+        { id: 3, reservations: [] },
       ];
       const updateAction = {
         type: 'UPDATE_RESERVATIONS',
@@ -25,9 +25,9 @@ describe('reducers', () => {
         reservations: [{ id: 2, table_id: 2 }],
       };
       expect(tables(initialState, updateAction)).toEqual([
-        { id: 1, queue: [] },
-        { id: 2, queue: [{ id: 2, table_id: 2 }] },
-        { id: 3, queue: [] },
+        { id: 1, reservations: [] },
+        { id: 2, reservations: [{ id: 2, table_id: 2 }] },
+        { id: 3, reservations: [] },
       ]);
     });
   });

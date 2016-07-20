@@ -8,7 +8,7 @@ function showReservedTime(currentPlayer) {
 }
 
 export default function Table(props) {
-  const currentPlayer = props.table.queue[0];
+  const currentPlayer = props.table.reservations[0];
   let leaveTableBtn;
   if (currentPlayer) {
     leaveTableBtn = (
@@ -23,7 +23,7 @@ export default function Table(props) {
       <button
         className="reserve-table"
         onClick={() => { props.onReserveTable(props.table.id); }}
-        disabled={props.table.queue.length > 0}
+        disabled={props.table.reservations.length > 0}
       >Reserve</button>
       {showReservedTime(currentPlayer)}
       {leaveTableBtn}

@@ -9,7 +9,9 @@ export function tables(state = [], action) {
       return action.tables;
     case UPDATE_RESERVATIONS: {
       const tableIndex = list.findIndex(table => table.get('id') === action.tableId);
-      return list.update(tableIndex, table => table.setIn(['queue'], action.reservations)).toJS();
+      return list.update(
+        tableIndex, table => table.setIn(['reservations'], action.reservations)
+      ).toJS();
     }
     default:
       return state;

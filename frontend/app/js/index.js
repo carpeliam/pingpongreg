@@ -8,7 +8,7 @@ import Container from './container';
 import reducer from './reducers';
 import subscribeToSocketEvents from './subscribeToSocketEvents';
 
-const initialState = { tables: [{ id: 1, queue: [] }] };
+const initialState = { tables: [] };
 const store = createStore(
   reducer,
   initialState,

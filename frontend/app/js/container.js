@@ -1,16 +1,17 @@
 import { connect } from 'react-redux';
-import { reserveTable, removeReservation } from './actions';
-import Table from './table';
+import { reserveTable, removeReservation, fetchTables } from './actions';
+import Location from './location';
 
 function mapStateToProps(state) {
-  return { table: state.tables[0] };
+  return { tables: state.tables };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
+    fetchTables: () => dispatch(fetchTables()),
     onReserveTable: (tableId) => dispatch(reserveTable(tableId)),
     onRemoveReservation: (reservation) => dispatch(removeReservation(reservation)),
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Table);
+export default connect(mapStateToProps, mapDispatchToProps)(Location);
