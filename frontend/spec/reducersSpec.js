@@ -1,4 +1,4 @@
-import { tables } from '../app/js/reducers';
+import { tables, currentUser } from '../app/js/reducers';
 
 describe('reducers', () => {
   describe('tables reducer', () => {
@@ -29,6 +29,16 @@ describe('reducers', () => {
         { id: 2, reservations: [{ id: 2, table_id: 2 }] },
         { id: 3, reservations: [] },
       ]);
+    });
+  });
+
+  describe('currentUser reducer', () => {
+    it('has a default state of null', () => {
+      expect(currentUser(undefined, { type: 'SOME_ACTION' })).toBeNull();
+    });
+    it('sets the user upon receiving a LOGIN_USER action', () => {
+      const user = { id: 'abc123', name: 'margaret' };
+      expect(currentUser(undefined, { type: 'LOGIN_USER', user })).toEqual(user);
     });
   });
 });

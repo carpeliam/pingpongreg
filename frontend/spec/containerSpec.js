@@ -2,24 +2,27 @@ import React from 'react';
 import { createStore } from 'redux';
 import { shallow } from 'enzyme';
 import Container from '../app/js/container';
-import Location from '../app/js/location';
 import * as actions from '../app/js/actions';
 
 describe('Container', () => {
   let container;
   let store;
   beforeEach(() => {
-    store = createStore(state => state, { tables: [{ id: 1, reservations: [] }] });
+    store = createStore(state => state, {
+      tables: [{ id: 1, reservations: [] }],
+      currentUser: { name: 'margaret', id: 'abc123' },
+    });
     spyOn(store, 'dispatch');
     container = shallow(<Container store={store} />);
   });
 
-  it('contains a Location child component', () => {
-    expect(container.find(Location)).toBePresent();
+  it('contains a Home child component', () => {
+    expect(container.find('Home')).toBePresent();
   });
 
-  it('passes table props to child component', () => {
+  it('passes table and currentUser props to child component', () => {
     expect(container).toHaveProp('tables', [{ id: 1, reservations: [] }]);
+    expect(container).toHaveProp('currentUser', { name: 'margaret', id: 'abc123' });
   });
 
   it('passes onReserveTable to child component', () => {

@@ -1,58 +1,59 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import * as fetchCurrentUser from '../app/js/fetchCurrentUser';
 import Table from '../app/js/table';
 
 describe('Table', () => {
+  const currentUser = { name: 'margaret', id: 'abc123' };
   it('calls Reserve Table callback upon reserve button click', () => {
+    const table = { id: 1, reservations: [] };
     const onReserveTable = jasmine.createSpy('onReserveTable');
-    const table = shallow(
-      <Table table={{ id: 1, reservations: [] }} onReserveTable={onReserveTable} />
+    const tableComponent = shallow(
+      <Table {...{ table, onReserveTable, currentUser }} onRemoveReservation={() => {}} />
     );
-    const reserveButton = table.find('.reserve-table').first();
+    const reserveButton = tableComponent.find('.reserve-table').first();
     reserveButton.simulate('click');
-    expect(onReserveTable).toHaveBeenCalledWith(1);
+    expect(onReserveTable).toHaveBeenCalledWith({ tableId: 1, user: currentUser });
   });
 
   describe('when the table is reserved', () => {
-    let table;
+    const table = { id: 1, reservations: [
+      {
+        id: 1,
+        created_at: '2016-06-26T20:27:22.162Z',
+        created_by: { name: 'Jim', id: '123abc' },
+      },
+      {
+        id: 2,
+        created_at: '2016-06-27T08:13:46.543Z',
+        created_by: { name: 'margaret', id: 'abc123' },
+      },
+    ] };
+    let tableComponent;
+    let onRemoveReservation;
     beforeEach(() => {
-      spyOn(fetchCurrentUser, 'default').and.returnValue('Meg');
-      table = shallow(
-        <Table
-          table={{
-            id: 1,
-            reservations: [
-              { id: 1, created_at: '2016-06-26T20:27:22.162Z', created_by: 'Jim' },
-              { id: 2, created_at: '2016-06-27T08:13:46.543Z', created_by: 'Meg' },
-            ],
-          }}
-          onReserveTable={() => {}}
-        />
+      onRemoveReservation = jasmine.createSpy('onRemoveReservation');
+      tableComponent = shallow(
+        <Table {...{ table, onRemoveReservation, currentUser }} onReserveTable={() => {}} />
       );
     });
     it('changes the text of the button', () => {
-      const reserveButton = table.find('.reserve-table').first();
+      const reserveButton = tableComponent.find('.reserve-table').first();
       expect(reserveButton).toHaveText('Enter Queue');
     });
     it('styles the local user in bold text', () => {
-      expect(table.find('li').at(1)).toHaveStyle('fontWeight', 'bold');
+      expect(tableComponent.find('li').at(1)).toHaveStyle('fontWeight', 'bold');
     });
     it('shows the queue', () => {
-      expect(table.find('ol li').first()).toHaveText('1:27pm reserved by Jim');
+      expect(tableComponent.find('ol li').first()).toHaveText('1:27pm reserved by Jim');
     });
-  });
 
-
-  it('calls Leave Table callback upon leave button click', () => {
-    const onRemoveReservation = jasmine.createSpy('onRemoveReservation');
-    const table = shallow(<Table
-      table={{ id: 1, reservations: [{ id: 2 }] }}
-      onReserveTable={() => {}}
-      onRemoveReservation={onRemoveReservation}
-    />);
-    const leaveButton = table.find('.leave-table').first();
-    leaveButton.simulate('click');
-    expect(onRemoveReservation).toHaveBeenCalledWith({ id: 2 });
+    it('calls Leave Table callback upon leave button click', () => {
+      const leaveButton = tableComponent.find('.leave-table').first();
+      leaveButton.simulate('click');
+      expect(onRemoveReservation).toHaveBeenCalledWith({
+        reservationId: 1,
+        user: currentUser,
+      });
+    });
   });
 });

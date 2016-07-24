@@ -1,6 +1,7 @@
 import Immutable from 'immutable';
 import { combineReducers } from 'redux';
-import { RECEIVE_TABLES, UPDATE_RESERVATIONS } from './actions';
+import { reducer as formReducer } from 'redux-form';
+import { RECEIVE_TABLES, UPDATE_RESERVATIONS, LOGIN_USER } from './actions';
 
 export function tables(state = [], action) {
   const list = Immutable.fromJS(state);
@@ -18,4 +19,17 @@ export function tables(state = [], action) {
   }
 }
 
-export default combineReducers({ tables });
+export function currentUser(state = null, action) {
+  switch (action.type) {
+    case LOGIN_USER:
+      return action.user;
+    default:
+      return state;
+  }
+}
+
+export default combineReducers({
+  tables,
+  currentUser,
+  form: formReducer,
+});

@@ -15,7 +15,7 @@ module.exports = function(config) {
       'node_modules/whatwg-fetch/fetch.js',
       'node_modules/babel-polyfill/dist/polyfill.min.js',
       'spec/matchers.js',
-      'spec/**/*Spec.js'
+      { pattern: 'spec/**/*Spec.js', watched: false, included: true, served: true }
     ],
     exclude: [],
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor

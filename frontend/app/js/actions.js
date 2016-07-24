@@ -1,11 +1,14 @@
-import fetchCurrentUser from './fetchCurrentUser';
+import shortid from 'shortid';
+import subscribeToSocketEvents from './subscribeToSocketEvents';
+import { setUser } from './cookieMonster';
 
 export const RESERVE_TABLE = 'RESERVE_TABLE';
 export const RECEIVE_TABLES = 'RECEIVE_TABLES';
 export const UPDATE_RESERVATIONS = 'UPDATE_RESERVATIONS';
+export const LOGIN_USER = 'LOGIN_USER';
 
-function headers() {
-  return new Headers({ UserId: fetchCurrentUser() });
+function headersFor(user) {
+  return new Headers({ UserId: JSON.stringify(user) });
 }
 
 function receiveTables(tables) {
@@ -23,12 +26,22 @@ export function fetchTables() {
       .then(json => dispatch(receiveTables(json)));
 }
 
-export function reserveTable(tableId) {
+export function reserveTable({ tableId, user }) {
   return () =>
-    fetch(`/tables/${tableId}/reservations`, { method: 'POST', headers: headers() });
+    fetch(`/tables/${tableId}/reservations`, { method: 'POST', headers: headersFor(user) });
 }
 
-export function removeReservation(reservation) {
+export function removeReservation({ reservationId, user }) {
   return () =>
-    fetch(`/reservations/${reservation.id}`, { method: 'DELETE', headers: headers() });
+    fetch(`/reservations/${reservationId}`, { method: 'DELETE', headers: headersFor(user) });
+}
+
+export function loginUser({ name }) {
+  const id = shortid.generate();
+  return dispatch => {
+    const user = { id, name };
+    setUser(user);
+    subscribeToSocketEvents(dispatch, id);
+    dispatch({ type: LOGIN_USER, user });
+  };
 }

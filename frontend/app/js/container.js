@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
 import { reserveTable, removeReservation, fetchTables } from './actions';
-import Location from './location';
+import Home from './home';
 
-function mapStateToProps(state) {
-  return { tables: state.tables };
+function mapStateToProps({ tables, currentUser }) {
+  return { tables, currentUser };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -14,4 +14,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Location);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

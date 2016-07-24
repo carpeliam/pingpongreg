@@ -1,7 +1,8 @@
 import React from 'react';
+import Header from './header';
 import Table from './table';
 
-export default class Location extends React.Component {
+export default class Home extends React.Component {
   constructor() {
     super();
     this.renderTables = this.renderTables.bind(this);
@@ -13,26 +14,30 @@ export default class Location extends React.Component {
     }
   }
   renderTables() {
-    const { onReserveTable, onRemoveReservation } = this.props;
+    const { currentUser, onReserveTable, onRemoveReservation } = this.props;
     return this.props.tables.map((table) =>
       <Table
         key={table.id}
-        table={table}
-        onReserveTable={onReserveTable}
-        onRemoveReservation={onRemoveReservation}
+        {...{ table, currentUser, onReserveTable, onRemoveReservation }}
       />
     );
   }
   renderEmptyMessage() {
-    return 'No tables are loaded. Did you configure any tables?';
+    return <div className="tables-empty">No tables are loaded. Did you configure any tables?</div>;
   }
   render() {
-    return <div>{this.props.tables.length ? this.renderTables() : this.renderEmptyMessage()}</div>;
+    return (
+      <div>
+        <Header currentUser={this.props.currentUser} />
+        {this.props.tables.length ? this.renderTables() : this.renderEmptyMessage()}
+      </div>
+    );
   }
 }
 
-Location.propTypes = {
+Home.propTypes = {
   tables: React.PropTypes.array.isRequired,
+  currentUser: React.PropTypes.object.isRequired,
   fetchTables: React.PropTypes.func.isRequired,
   onReserveTable: React.PropTypes.func.isRequired,
   onRemoveReservation: React.PropTypes.func.isRequired,

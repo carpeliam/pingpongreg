@@ -5,7 +5,7 @@
 # below each fixture, per the syntax in the comments below
 #
 table_one_reservation:
-  created_by: Susan Saranwrap
+  created_by: '{"name":"Susan Saranwrap","id":"abc123"}'
   table: with_reservations
 #
 two: {}

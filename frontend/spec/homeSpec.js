@@ -1,27 +1,36 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import Location from '../app/js/location';
+import Home from '../app/js/home';
 import Table from '../app/js/table';
 
-describe('Location', () => {
+describe('Home', () => {
+  const currentUser = { id: 'abc123', name: 'margaret' };
   let fetchTablesSpy;
-  let location;
+  let home;
   beforeEach(() => {
     fetchTablesSpy = jasmine.createSpy('fetchTables');
   });
 
+  it('contains a Header', () => {
+    home = shallow(<Home currentUser={currentUser} tables={[]} />);
+    const header = home.find('Header');
+    expect(header).toBePresent();
+    expect(header).toHaveProp('currentUser', currentUser);
+  });
+
   describe('with no tables present', () => {
     beforeEach(() => {
-      location = shallow(<Location fetchTables={fetchTablesSpy} tables={[]} />);
+      home = shallow(<Home fetchTables={fetchTablesSpy} tables={[]} />);
     });
 
     it('fetches tables within componentDidMount', () => {
-      location.instance().componentDidMount();
+      home.instance().componentDidMount();
       expect(fetchTablesSpy).toHaveBeenCalled();
     });
 
     it('displays a message that no tables are loaded', () => {
-      expect(location).toHaveText('No tables are loaded. Did you configure any tables?');
+      const msg = home.find('.tables-empty');
+      expect(msg).toHaveText('No tables are loaded. Did you configure any tables?');
     });
   });
 
@@ -30,31 +39,27 @@ describe('Location', () => {
     const onRemoveReservation = () => {};
     beforeEach(() => {
       const tables = [{ id: 1, reservations: [] }, { id: 2, reservations: [] }];
-      location = shallow(<Location
+      home = shallow(<Home
         fetchTables={fetchTablesSpy}
-        tables={tables}
-        onReserveTable={onReserveTable}
-        onRemoveReservation={onRemoveReservation}
+        {...{ currentUser, tables, onReserveTable, onRemoveReservation }}
       />);
     });
     it('does not fetch tables within componentDidMount', () => {
-      location.instance().componentDidMount();
+      home.instance().componentDidMount();
       expect(fetchTablesSpy).not.toHaveBeenCalled();
     });
 
     it('renders a table for each table prop', () => {
-      expect(location.find(Table).length).toEqual(2);
-      expect(location).toContainReact(<Table
+      expect(home.find(Table).length).toEqual(2);
+      expect(home).toContainReact(<Table
         key={1}
         table={{ id: 1, reservations: [] }}
-        onReserveTable={onReserveTable}
-        onRemoveReservation={onRemoveReservation}
+        {...{ currentUser, onReserveTable, onRemoveReservation }}
       />);
-      expect(location).toContainReact(<Table
+      expect(home).toContainReact(<Table
         key={2}
         table={{ id: 2, reservations: [] }}
-        onReserveTable={onReserveTable}
-        onRemoveReservation={onRemoveReservation}
+        {...{ currentUser, onReserveTable, onRemoveReservation }}
       />);
     });
   });

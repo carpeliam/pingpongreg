@@ -5,7 +5,7 @@ def json_for(table)
     {
       id: reservation.id,
       table_id: table.id,
-      created_by: reservation.created_by,
+      created_by: JSON.parse(reservation.created_by, symbolize_names: true),
       created_at: reservation.created_at.as_json,
       updated_at: reservation.updated_at.as_json
     }
