@@ -44,11 +44,13 @@ describe('Table', () => {
       expect(tableComponent.find('li').at(1)).toHaveStyle('fontWeight', 'bold');
     });
     it('shows the queue', () => {
-      expect(tableComponent.find('ol li').first()).toHaveText('1:27pm reserved by Jim');
+      expect(tableComponent.find('ol li span').first()).toHaveText('1:27pm reserved by Jim');
     });
 
-    it('calls Leave Table callback upon leave button click', () => {
-      const leaveButton = tableComponent.find('.leave-table').first();
+    it('calls Remove Reservation callback upon leave button click', () => {
+      const leaveButtons = tableComponent.find('.leave-table');
+      expect(leaveButtons.length).toEqual(2);
+      const leaveButton = leaveButtons.first();
       leaveButton.simulate('click');
       expect(onRemoveReservation).toHaveBeenCalledWith({
         reservationId: 1,
