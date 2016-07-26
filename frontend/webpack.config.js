@@ -5,7 +5,14 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var isDev = process.argv.indexOf('--watch') > -1;
 var isTest = process.argv[1].indexOf('karma') > -1;
 
+var entry = ['whatwg-fetch', './app/js/index.js'];
 var output;
+var loaders = [{
+  test: /\.js$/,
+  exclude: /node_modules/,
+  loader: 'babel-loader',
+}];
+
 var plugins = [
   new HtmlWebpackPlugin({ title: 'Ping Pong Registration' }),
   new webpack.DefinePlugin({
@@ -15,7 +22,9 @@ var plugins = [
 ];
 
 if (isDev) {
+  entry.unshift('react-addons-perf');
   output = { path: path.join(__dirname, '..', 'backend', 'public'), filename: 'index.js' };
+  loaders.push({ test: require.resolve('react-addons-perf'), loader: 'expose?Perf' });
 } else {
   output = { path: path.join(__dirname, 'dist'), filename: 'index-[hash].js' };
   if (!isTest) {
@@ -24,15 +33,9 @@ if (isDev) {
 }
 
 module.exports = {
-  entry: ['whatwg-fetch', './app/js/index.js'],
+  entry: entry,
   output: output,
-  module: {
-    loaders: [{
-      test: /\.js$/,
-      exclude: /node_modules/,
-      loader: 'babel-loader',
-    }]
-  },
-  devtool: (isDev || isTest) && 'source-map',
+  module: { loaders },
+  devtool: isDev && 'source-map',
   plugins: plugins
 };

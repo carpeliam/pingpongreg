@@ -1,5 +1,6 @@
 var webpackConfig = require('./webpack.config.js');
 webpackConfig.entry = {};
+webpackConfig.devtool = 'inline-source-map';
 webpackConfig.externals = {
   'react/addons': true,
   'react/lib/ExecutionEnvironment': true,
