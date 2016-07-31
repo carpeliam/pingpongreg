@@ -27,7 +27,7 @@ export default class Home extends React.Component {
   }
   render() {
     return (
-      <div>
+      <div className="container">
         <Header currentUser={this.props.currentUser} />
         {this.props.tables.length ? this.renderTables() : this.renderEmptyMessage()}
       </div>

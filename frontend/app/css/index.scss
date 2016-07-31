@@ -1,0 +1,74 @@
+@import "~normalize.css/normalize.css";
+
+* {
+  box-sizing: border-box;
+}
+
+.container {
+  margin: 0 auto;
+  padding: 15px;
+  max-width: 1024px;
+}
+
+header {
+  text-align: right;
+
+  .current-user {
+    font-weight: bold;
+  }
+}
+
+.login-bg {
+  background: linear-gradient(
+    rgba(0, 0, 0, .7),
+    rgba(0, 0, 0, .7)
+  ), url("../img/ping-pong-header-image.jpg");
+  background-size: cover;
+  height: 100vh;
+  overflow: auto;
+}
+
+.login {
+  font-size: 2rem;
+  margin: 25vh auto;
+  width: 400px;
+
+  input[type="text"] {
+    background-color: rgba(0, 0, 0, 0);
+    border: 0;
+    border-bottom: 1px dotted white;
+    border-radius: 3px;
+    color: #999;
+    display: block;
+    outline: none;
+    padding: 8px;
+    transition: background-color .5s, border-bottom-color .5s, color .5s;
+    width: 100%;
+
+    &:focus {
+      background-color: rgba(0, 0, 0, .5);
+      border-bottom: 4px solid #f6c;
+      color: #f6c;
+      padding-bottom: 5px;
+    }
+
+    &::-webkit-input-placeholder {
+      text-align: center;
+    }
+
+    &::-moz-placeholder {
+      text-align: center;
+    }
+
+    &:-ms-input-placeholder {
+      text-align: center;
+    }
+  }
+
+  input[type="submit"] {
+    display: block;
+    margin-top: 5px;
+    width: 100%;
+  }
+}
+

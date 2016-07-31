@@ -23,4 +23,9 @@ describe('Login', () => {
     expect(actions.loginUser).toHaveBeenCalledWith({ name: 'margaret' });
     expect(store.dispatch).toHaveBeenCalledWith({ type: 'LOGIN_USER' });
   });
+
+  it('disables the submit button when no name is entered', () => {
+    const submit = login.find('input[type="submit"]');
+    expect(submit).toBeDisabled();
+  });
 });

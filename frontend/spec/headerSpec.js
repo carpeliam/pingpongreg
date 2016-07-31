@@ -6,6 +6,6 @@ describe('Header', () => {
   const currentUser = { id: 'abc123', name: 'margaret' };
   it('renders the user name', () => {
     const header = shallow(<Header currentUser={currentUser} />);
-    expect(header).toHaveText('margaret');
+    expect(header.find('.current-user')).toHaveText('margaret');
   });
 });

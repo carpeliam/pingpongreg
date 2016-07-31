@@ -1,20 +1,32 @@
 var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 var isDev = process.argv.indexOf('--watch') > -1;
 var isTest = process.argv[1].indexOf('karma') > -1;
 
-var entry = ['whatwg-fetch', './app/js/index.js'];
+var entry = ['whatwg-fetch', './app/js/index.js', './app/css/index.scss'];
 var output;
-var loaders = [{
-  test: /\.js$/,
-  exclude: /node_modules/,
-  loader: 'babel-loader',
-}];
+var loaders = [
+  {
+    test: /\.js$/,
+    exclude: /node_modules/,
+    loader: 'babel-loader',
+  },
+  {
+    test: /\.scss$/,
+    loader: ExtractTextPlugin.extract('style', 'css!sass')
+  },
+  {
+    test: /\.(png|jpg|gif|woff|woff2)$/,
+    loader: 'url-loader?limit=8192'
+  }
+];
 
 var plugins = [
   new HtmlWebpackPlugin({ title: 'Ping Pong Registration' }),
+  new ExtractTextPlugin('index.css'),
   new webpack.DefinePlugin({
     ACTION_CABLE_SERVER_URL: isDev ? undefined : JSON.stringify('wss://pivotal-samo-pong-reg.cfapps.io:4443/cable'),
     'process.env.NODE_ENV': JSON.stringify((isDev || isTest) ? 'development' : 'production')
