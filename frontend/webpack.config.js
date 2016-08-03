@@ -25,7 +25,11 @@ var loaders = [
 ];
 
 var plugins = [
-  new HtmlWebpackPlugin({ title: 'Ping Pong Registration' }),
+  new HtmlWebpackPlugin({
+    title: 'Ping Pong Registration',
+    template: 'app/index.html',
+    trackingId: process.env.GA_TRACKING_ID
+  }),
   new ExtractTextPlugin('index.css'),
   new webpack.DefinePlugin({
     ACTION_CABLE_SERVER_URL: isDev ? undefined : JSON.stringify('wss://pivotal-samo-pong-reg.cfapps.io:4443/cable'),
